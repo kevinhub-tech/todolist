@@ -1,0 +1,115 @@
+.App{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 650px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.App h1{
+  text-align: center;
+  font-weight: 700;
+}
+
+.todolist-form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.todolist-form input[type="text"]{
+  padding: 10px;
+  width:85%;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.todolist-form input[type="text"]:focus{
+  outline:none;
+}
+
+.todolist-form button[type="submit"]:focus{
+  outline: none;
+}
+
+.todolist-form button[type="submit"]{
+  background-color: #000080;
+  color:#fff;
+  border:none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.todolist_items{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item-content{
+  width: 60%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.todo-item button{
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.todo-item button:focus{
+  outline: none;
+}
+
+.update-item{
+  background-color: #000080;
+  color:#fff;
+  border:none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.delete-item{
+  background-color: #000000;
+  color:#fff;
+  border:none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-left:10px;
+}
+
+.update-form{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.update-new-input{
+  border-radius: 6px;
+  width: 80%;
+  border: 1px solid #eee;
+  padding: 8px;
+  outline: none;
+}
+
+.update-new-btn{
+  background-color: greenyellow;
+  color: #000000;
+  cursor: pointer;
+}

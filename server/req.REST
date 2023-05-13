@@ -1,0 +1,9 @@
+PUT http://localhost:5500/api/item/645a1f4f90e926d8703b0d64
+Content-Type: application/json
+
+{
+    "item": "This is the second item added",
+    "startDate": "9/5/2023",
+    "dueDate": "9/5/2023",
+    "notes":"testing"
+}
