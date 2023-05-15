@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
+  const [checked, setChecked] = useState(false);
   const [itemText, setitemText] = useState("");
   const [startDate, setstartDate] = useState("");
   const [dueDate, setdueDate] = useState("");
@@ -13,6 +14,7 @@ function App() {
   const [updateStartDate, setUpdateStartDate] = useState("");
   const [updateDueDate, setUpdateDueDate] = useState("");
   const [updateNotes, setUpdateNotes] = useState("");
+  const [updateChecked, setUpdateChecked] = useState(false);
   //Add new item into the database (post method)
   const addItem = async (e) => {
     e.preventDefault();
@@ -22,12 +24,14 @@ function App() {
         startDate: startDate,
         dueDate: dueDate,
         notes: Notes,
+        checked: checked,
       });
       setListItems((prev) => [...prev, res.data]);
       setitemText("");
       setstartDate("");
       setdueDate("");
       setNotes("");
+      setChecked("");
     } catch (err) {
       console.log(err);
     }
@@ -61,23 +65,36 @@ function App() {
   //Creating update items function
   const updateItems = async (e) => {
     e.preventDefault();
+
+    const updatedItemIndex = listItems.findIndex(
+      (item) => item._id === isUpdating
+    );
+
     try {
       const res = await axios.put(`/api/item/${isUpdating}`, {
-        item: updateItem,
-        startDate: updateStartDate,
-        dueDate: updateDueDate,
-        notes: updateNotes,
+        item: updateItem || listItems[updatedItemIndex].item,
+        startDate: updateStartDate || listItems[updatedItemIndex].startDate,
+        dueDate: updateDueDate || listItems[updatedItemIndex].dueDate,
+        notes: updateNotes || listItems[updatedItemIndex].notes,
+        checked: updateChecked,
       });
       console.log(res.data);
-      const updatedItemIndex = listItems.findIndex(
-        (item) => item._id === isUpdating
-      );
-      const updatedItem = (listItems[updatedItemIndex].item = updateItem);
+
+      listItems[updatedItemIndex].item =
+        updateItem || listItems[updatedItemIndex].item;
+      listItems[updatedItemIndex].startDate =
+        updateStartDate || listItems[updatedItemIndex].startDate;
+      listItems[updatedItemIndex].dueDate =
+        updateDueDate || listItems[updatedItemIndex].dueDate;
+      listItems[updatedItemIndex].notes =
+        updateNotes || listItems[updatedItemIndex].notes;
+      listItems[updatedItemIndex].checked = updateChecked;
 
       setUpdateItem("");
       setUpdateStartDate("");
       setUpdateDueDate("");
       setUpdateNotes("");
+      setUpdateChecked();
       setIsUpdating("");
     } catch (err) {
       console.log(err);
@@ -127,6 +144,13 @@ function App() {
         }}
         value={updateNotes}
       />
+      <input
+        type="checkbox"
+        onChange={(i) => {
+          setUpdateChecked(i.target.checked);
+        }}
+        value={updateChecked}
+      ></input>
       <button className="update-new-btn" type="submit">
         Update
       </button>
@@ -169,6 +193,7 @@ function App() {
           value={Notes}
           placeholder="Notes (Optional)"
         ></input>
+
         <button type="submit">Add</button>
       </form>
       <div className="todoList_items">
@@ -178,10 +203,27 @@ function App() {
               renderUpdateForm()
             ) : (
               <>
-                <p className="item-content">{item.item}</p>
-                <p className="item-content">{item.startDate}</p>
-                <p className="item-content">{item.dueDate}</p>
-                <p className="item-content">{item.notes}</p>
+                <p key={item._id} className="item-content">
+                  {item.item}
+                </p>
+                <p key={item._id} className="item-content">
+                  {item.dueDate}
+                </p>
+                <p key={item._id} className="item-content">
+                  {item.startDate}
+                </p>
+                <p key={item._id} className="item-content">
+                  {item.notes}
+                </p>
+                {item.checked ? (
+                  <p key={item._id} className="item-content">
+                    Done
+                  </p>
+                ) : (
+                  <p key={item._id} className="item-content">
+                    To be completed
+                  </p>
+                )}
                 <button
                   className="update-item"
                   onClick={() => {

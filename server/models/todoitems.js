@@ -18,6 +18,9 @@ const TodoItemSchema = new mongoose.Schema({
   notes: {
     type: String,
   },
+  checked: {
+    type: Boolean,
+  },
 });
 
 //exporting this schema

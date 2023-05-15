@@ -12,6 +12,7 @@ router.post("/api/item", async (req, res) => {
       startDate: req.body.startDate,
       dueDate: req.body.dueDate,
       notes: req.body.notes,
+      checked: req.body.checked,
     });
     //saving those data into the database
     const saveItem = await newItem.save();
